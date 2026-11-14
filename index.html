@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LF Desenvolvimentos — Biolinks com domínio próprio</title>
+<meta name="description" content="Biolinks com domínio próprio para psicólogos, dentistas, advogados, nutricionistas e clínicas. A partir de R$ 500.">
+<meta name="theme-color" content="#0F1115">
+<link rel="icon" href="assets/logo.png">
+<meta property="og:title" content="LF Desenvolvimentos — Biolinks com domínio próprio">
+<meta property="og:description" content="Sua página com seu nome, sua identidade e WhatsApp direto. A partir de R$ 500.">
+<meta property="og:image" content="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0F1115; --panel:#171A21; --panel-2:#1E222B; --line:#2A2F3A;
+  --text:#F4F4F2; --muted:#A7ACB8; --dim:#7D8392;
+  --lime:#C8F25A; --lime-ink:#0F1115;
+  --r:20px; --r-sm:12px;
+  --display:'Space Grotesk',system-ui,sans-serif; --body:Inter,system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --grid-dot:rgba(244,244,242,.085);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--lime);color:var(--lime-ink);padding:10px 14px;border-radius:10px;font-weight:600;z-index:50;text-decoration:none}
+.skip:focus{top:12px}
+
+/* pointer spotlight (desktop) */
+.spot{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(420px circle at var(--mx,50%) var(--my,-20%),rgba(200,242,90,.07),transparent 60%);transition:opacity .4s}
+@media (hover:none){.spot{display:none}}
+
+.wrap{position:relative;z-index:1;width:100%;max-width:480px;margin:0 auto;padding:0 20px}
+section{padding:56px 0 8px}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em}
+h2{font-size:28px;line-height:1.15;margin-bottom:8px}
+.lead{color:var(--muted);margin:0 0 22px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin:0 0 10px}
+
+/* ---------- hero ---------- */
+.hero{padding:44px 0 8px;text-align:center}
+.mark{display:inline-flex;align-items:center;gap:12px;background:var(--text);color:var(--ink);border-radius:26px;padding:14px 24px 14px 26px;font-family:var(--display);font-weight:700;font-size:56px;letter-spacing:-4px;line-height:1;cursor:pointer;border:0;transition:transform .25s var(--ease)}
+.mark:hover{transform:scale(1.03)}
+.mark:active{transform:scale(.97)}
+.dot{width:32px;height:32px;border-radius:50%;background:var(--lime);position:relative;display:grid;place-items:center;transition:transform .14s ease}
+.dot .pupil{width:18px;height:18px;border-radius:50%;background:var(--ink);display:block;position:relative}
+.dot .pupil::after{content:"";position:absolute;width:5px;height:5px;border-radius:50%;background:#fff;top:3px;right:3px;opacity:.85}
+.dot.fx-blink{transform:scaleY(.08)}
+.dot::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid var(--lime);animation:ping 2.8s var(--ease) infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.9}70%,100%{transform:scale(2.2);opacity:0}}
+.mark.spin{animation:wiggle .5s var(--ease)}
+@keyframes wiggle{25%{transform:rotate(-5deg) scale(1.04)}60%{transform:rotate(4deg) scale(1.02)}}
+.hero h1{font-size:30px;line-height:1.12;margin:26px 0 10px}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero p{color:var(--muted);margin:0 auto 24px;max-width:380px}
+.handle{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--dim);margin-bottom:18px}
+.live{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(200,242,90,.6);animation:live 2.4s infinite}
+@keyframes live{0%{box-shadow:0 0 0 0 rgba(200,242,90,.55)}80%,100%{box-shadow:0 0 0 10px rgba(200,242,90,0)}}
+
+[data-enter]{animation:enter .7s var(--ease) backwards}
+[data-enter="2"]{animation-delay:.08s}[data-enter="3"]{animation-delay:.16s}[data-enter="4"]{animation-delay:.24s}[data-enter="5"]{animation-delay:.32s}[data-enter="6"]{animation-delay:.4s}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}}
+
+/* ---------- quem faz ---------- */
+.who{background:var(--panel);border:1px solid var(--line);border-radius:28px;padding:22px;overflow:hidden}
+.who-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.who-av{width:58px;height:58px;border-radius:18px;background:var(--text);color:var(--ink);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-1px;flex:0 0 auto}
+.who-top b{display:block;font-family:var(--display);font-size:20px;letter-spacing:-.02em}
+.who-top span{font-size:13px;color:var(--lime);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.who p{color:var(--muted);margin:0 0 16px;font-size:15px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.fact{background:var(--ink);border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center}
+.fact b{display:block;font-family:var(--display);font-size:24px;line-height:1;color:var(--lime)}
+.fact small{font-size:11.5px;color:var(--muted);line-height:1.25;display:block;margin-top:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.tags span{font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);transition:all .2s}
+.tags span:hover{color:var(--ink);background:var(--lime);border-color:var(--lime);transform:translateY(-2px) rotate(-2deg)}
+.who .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.who .row2 .btn{min-height:52px;padding:0 14px}
+.socials{display:flex;justify-content:center;gap:10px;margin:16px 0 4px}
+.socials a{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);transition:all .25s var(--ease)}
+.socials a:hover{color:var(--ink);background:var(--lime);border-color:var(--lime);transform:translateY(-3px) rotate(-8deg)}
+
+/* ---------- buttons / links ---------- */
+.stack{display:flex;flex-direction:column;gap:12px}
+.btn{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:60px;padding:0 20px;border-radius:var(--r);text-decoration:none;font-weight:600;border:1px solid var(--line);background:var(--panel);transition:transform .2s var(--ease),background .2s,border-color .2s;cursor:pointer;width:100%;text-align:left}
+.btn:hover{transform:translateY(-2px);border-color:#3A4050;background:var(--panel-2)}
+.btn:active{transform:translateY(0) scale(.985)}
+.btn .ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--panel-2);flex:0 0 auto}
+.btn .lbl{flex:1;display:flex;flex-direction:column;line-height:1.25}
+.btn .lbl small{font-weight:400;color:var(--muted);font-size:13px}
+.btn .arr{transition:transform .25s var(--ease);color:var(--dim)}
+.btn:hover .arr{transform:translateX(4px);color:var(--text)}
+.btn.primary{background:var(--lime);color:var(--lime-ink);border-color:var(--lime)}
+.btn.primary:hover{background:#D6FF6E}
+.btn.primary .ico{background:rgba(15,17,21,.1)}
+.btn.primary .lbl small{color:rgba(15,17,21,.7)}
+.btn.primary .arr{color:var(--lime-ink)}
+.btn.primary::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);background-size:250% 100%;background-position:120% 0;animation:sheen 3.6s var(--ease) infinite;pointer-events:none}
+@keyframes sheen{0%,55%{background-position:120% 0}100%{background-position:-120% 0}}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- builder ---------- */
+.builder{background:var(--panel);border:1px solid var(--line);border-radius:28px;padding:20px}
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.field label,.field .lab{font-size:14px;font-weight:600}
+.input{height:52px;border-radius:14px;border:1px solid var(--line);background:var(--ink);padding:0 16px;font-size:16px;outline:none;transition:border-color .2s}
+.input:focus{border-color:var(--lime)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;font-size:14px;font-weight:500;transition:all .2s var(--ease)}
+.chip:hover{border-color:#4A5060}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--ink);border-color:var(--text)}
+.swatches{display:flex;gap:12px}
+.sw{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.12);transition:transform .2s var(--ease)}
+.sw:hover{transform:scale(1.08)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink),0 0 0 5px var(--text)}
+
+.phone{margin:22px auto 18px;width:260px;border-radius:40px;background:#22262F;padding:10px;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.screen{border-radius:31px;overflow:hidden;background:var(--pbg,#F7F2EE);color:var(--pink,#2A1F1A);transition:background .4s,color .4s;min-height:470px;display:flex;flex-direction:column}
+.urlbar{margin:12px 12px 0;border-radius:999px;background:rgba(0,0,0,.06);font-size:12px;padding:7px 12px;display:flex;align-items:center;white-space:nowrap;overflow:hidden}
+.urlbar b{font-weight:600}
+.urlbar .lock{width:12px;height:12px;flex:0 0 auto;margin-right:6px}
+.pv{padding:18px 18px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;flex:1}
+.av{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:var(--pc,#C98B7A);color:#fff;font-family:var(--display);font-weight:700;font-size:28px;margin-bottom:6px;transition:background .4s, transform .4s var(--ease)}
+.pv .nm{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.15;word-break:break-word}
+.pv .pf{font-size:12px;opacity:.7;margin-bottom:10px}
+.pbtn{width:100%;border-radius:14px;padding:11px 12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.06);transition:background .4s}
+.pbtn.main{background:var(--pc,#C98B7A);color:#fff}
+.pbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pop{animation:pop .45s var(--ease)}
+@keyframes pop{0%{transform:scale(.92)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
+
+/* ---------- compare ---------- */
+.compare{position:relative;height:420px;border-radius:28px;overflow:hidden;border:1px solid var(--line);user-select:none;touch-action:pan-y;cursor:ew-resize}
+.side{position:absolute;inset:0;padding:22px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.side.before{background:#ECECEC;color:#222}
+.side.after{background:#F7F2EE;color:#2A1F1A;clip-path:inset(0 0 0 var(--cut,50%))}
+.tag{position:absolute;top:14px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:999px}
+.before .tag{left:14px;background:#222;color:#fff}
+.after .tag{right:14px;background:#2A1F1A;color:#F7F2EE}
+.gen-av{width:64px;height:64px;border-radius:50%;background:#C9C9C9;margin-top:34px}
+.gen-nm{font-weight:600;font-size:15px}
+.gen-url{font-size:12px;color:#666;margin-bottom:6px}
+.gen-btn{width:100%;max-width:280px;padding:13px;border-radius:999px;background:#fff;border:1px solid #D6D6D6;text-align:center;font-size:14px;font-weight:500}
+.lux-av{width:76px;height:76px;border-radius:50%;background:#C98B7A;margin-top:30px;display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:700;font-size:26px}
+.lux-nm{font-family:var(--display);font-weight:700;font-size:20px}
+.lux-url{font-size:12px;opacity:.7;margin-bottom:4px}
+.lux-btn{width:100%;max-width:280px;padding:13px 14px;border-radius:14px;background:rgba(0,0,0,.06);font-size:14px;font-weight:600;display:flex;gap:8px;align-items:center}
+.lux-btn.main{background:#C98B7A;color:#fff}
+.lux-map{width:100%;max-width:280px;height:62px;border-radius:14px;background:repeating-linear-gradient(45deg,#EADFD8 0 8px,#F1E8E2 8px 16px);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;gap:6px}
+.knob{position:absolute;top:0;bottom:0;left:var(--cut,50%);width:2px;background:var(--lime);transform:translateX(-1px);pointer-events:none}
+.knob span{position:absolute;top:50%;left:50%;width:46px;height:46px;border-radius:50%;background:var(--lime);color:var(--lime-ink);transform:translate(-50%,-50%);display:grid;place-items:center;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+
+/* ---------- portfolio ---------- */
+.feat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.card{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .25s var(--ease),border-color .25s}
+.card:hover{transform:translateY(-2px);border-color:#3A4050}
+.card .shot{aspect-ratio:9/15;overflow:hidden;background:#222}
+.card .shot img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s var(--ease)}
+.card:hover .shot img{transform:scale(1.03)}
+.card .meta{padding:12px 14px}
+.card .meta b{display:block;font-size:14px}
+.card .meta span{font-size:12px;color:var(--muted)}
+.list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
+.row{display:flex;align-items:center;gap:12px;min-height:58px;padding:0 16px;text-decoration:none;border-top:1px solid var(--line);transition:background .2s}
+.row:first-child{border-top:0}
+.row:hover{background:var(--panel-2)}
+.row .fav{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink);flex:0 0 auto}
+.row .d{flex:1;min-width:0}
+.row .d b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .d span{font-size:12px;color:var(--muted)}
+.row .arr{color:var(--dim);transition:transform .25s var(--ease)}
+.row:hover .arr{transform:translate(3px,-3px);color:var(--lime)}
+
+/* ---------- included ---------- */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.feat-i{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:14px;font-weight:500;transition:transform .25s var(--ease),border-color .25s}
+.feat-i:hover{transform:translateY(-2px);border-color:#3A4050}
+.feat-i .ic{width:36px;height:36px;border-radius:11px;background:rgba(200,242,90,.12);color:var(--lime);display:grid;place-items:center}
+
+/* ---------- price ---------- */
+.price{background:var(--text);color:var(--ink);border-radius:28px;padding:24px}
+.price .big{font-family:var(--display);font-weight:700;font-size:56px;letter-spacing:-3px;line-height:1}
+.price .sub{color:#4A4F5C;margin:6px 0 20px}
+.calc{background:#E8E8E4;border-radius:18px;padding:16px}
+.calc label{font-size:14px;font-weight:600;display:block;margin-bottom:10px}
+.calc output{font-family:var(--display);font-weight:700}
+input[type=range].slider{width:100%;accent-color:var(--ink);height:28px}
+.payback{margin-top:10px;font-size:15px}
+.payback b{font-family:var(--display);font-size:18px}
+.price .btn{margin-top:16px}
+
+/* ---------- steps / faq ---------- */
+.steps{counter-reset:s;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.steps li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+.steps li::before{content:counter(s);flex:0 0 32px;height:32px;border-radius:10px;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;font-family:var(--display);font-weight:700}
+.steps b{display:block}
+.steps span{color:var(--muted);font-size:14px}
+details{border:1px solid var(--line);border-radius:16px;background:var(--panel);margin-bottom:10px;overflow:hidden}
+summary{list-style:none;cursor:pointer;min-height:56px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary .pl{transition:transform .3s var(--ease);color:var(--lime);flex:0 0 auto}
+details[open] summary .pl{transform:rotate(45deg)}
+details p{margin:0;padding:0 18px 18px;color:var(--muted)}
+
+footer{padding:48px 0 120px;text-align:center;color:var(--dim);font-size:13px}
+footer .mini{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;color:var(--text);font-size:20px;letter-spacing:-1px;margin-bottom:10px}
+footer .mini i{width:9px;height:9px;border-radius:50%;background:var(--text);box-shadow:0 0 0 3px var(--lime);display:inline-block}
+.share{margin-top:14px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;font-size:14px;font-weight:500;transition:border-color .2s}
+.share:hover{border-color:var(--lime)}
+
+/* sticky bar */
+.bar{visibility:hidden;position:fixed;left:50%;bottom:16px;transform:translate(-50%,140%);z-index:20;width:calc(100% - 32px);max-width:448px;transition:transform .45s var(--ease)}
+.bar.show{visibility:visible;transform:translate(-50%,0)}
+.bar .btn{min-height:56px;box-shadow:0 14px 30px rgba(0,0,0,.45)}
+
+.toast{visibility:hidden;position:fixed;left:50%;top:18px;transform:translate(-50%,-160%);background:var(--text);color:var(--ink);padding:12px 18px;border-radius:999px;font-weight:600;font-size:14px;z-index:60;transition:transform .4s var(--ease)}
+.toast.show{visibility:visible;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  [data-enter]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#crie">Pular para o simulador</a>
+<div class="spot" aria-hidden="true"></div>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <button class="mark" id="mark" type="button" aria-label="LF Desenvolvimentos" data-enter>
+      LF<span class="dot" data-eye="5" aria-hidden="true"><span class="pupil"></span></span>
+    </button>
+    <h1 data-enter="2">Biolinks com <em>domínio próprio</em> para quem atende pelo Instagram</h1>
+    <p data-enter="3">Psicólogos, dentistas, advogados, nutris e clínicas. Sua página com seu nome, sua identidade e WhatsApp direto. A partir de R$ 500.</p>
+    <div class="handle" data-enter="3"><span class="live" aria-hidden="true"></span>Atendendo todo o Brasil, online</div>
+
+    <div class="stack" id="heroActions">
+      <a class="btn primary js-wa" data-msg="Oi! Vi seu biolink e quero um orçamento." href="#" data-enter="4">
+        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
+        <span class="lbl">Pedir orçamento<small>Resposta no WhatsApp</small></span>
+        <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn" href="#crie" data-enter="5">
+        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+        <span class="lbl">Monte o seu agora<small>Veja como fica com o seu nome</small></span>
+        <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn" href="#portfolio" data-enter="5">
+        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        <span class="lbl">Portfólio<small>9 biolinks no ar</small></span>
+        <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn" href="https://www.instagram.com/lfdesenvolvimentos/" target="_blank" rel="noopener" data-enter="6">
+        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg></span>
+        <span class="lbl">Instagram<small>@lfdesenvolvimentos</small></span>
+        <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn" href="portfolio/" data-enter="6">
+        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg></span>
+        <span class="lbl">Quem faz: Leonardo Feitosa<small>Portfólio de dev full stack</small></span>
+        <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- BUILDER -->
+  <section id="crie" aria-labelledby="crie-t">
+    <p class="eyebrow">Simulador</p>
+    <h2 id="crie-t">Monte o seu biolink em 10 segundos</h2>
+    <p class="lead">Digite seu nome e veja seu domínio na hora.</p>
+    <div class="builder">
+      <div class="field">
+        <label for="nome">Seu nome ou da clínica</label>
+        <input class="input" id="nome" type="text" autocomplete="name" maxlength="40" placeholder="Ex.: Dra. Marina Lopes">
+      </div>
+      <div class="field">
+        <span class="lab" id="prof-l">Profissão</span>
+        <div class="chips" role="group" aria-labelledby="prof-l" id="profs"></div>
+      </div>
+      <div class="field">
+        <span class="lab" id="cor-l">Cor da sua marca</span>
+        <div class="swatches" role="group" aria-labelledby="cor-l" id="cores"></div>
+      </div>
+
+      <div class="phone" aria-live="polite">
+        <div class="screen" id="screen">
+          <div class="urlbar"><svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><b id="slug">seunome</b>.com.br</div>
+          <div class="pv">
+            <div class="av" id="av">S</div>
+            <div class="nm" id="pnm">Seu Nome</div>
+            <div class="pf" id="ppf">Psicóloga</div>
+            <div class="pbtn main"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg><span id="pcta">Agendar consulta</span></div>
+            <div class="pbtn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg>Instagram</div>
+            <div class="pbtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Endereço e mapa</div>
+            <div class="pbtn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Horários de atendimento</div>
+          </div>
+        </div>
+      </div>
+
+      <a class="btn primary js-wa" id="quero" href="#">
+        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <span class="lbl">Quero o meu assim<small id="quero-s">seunome.com.br</small></span>
+        <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section aria-labelledby="cmp-t">
+    <p class="eyebrow">Antes e depois</p>
+    <h2 id="cmp-t">Link genérico ou página com a sua cara?</h2>
+    <p class="lead">Arraste para comparar.</p>
+    <div class="compare" id="compare">
+      <div class="side before" aria-hidden="true">
+        <span class="tag">Genérico</span>
+        <div class="gen-av"></div>
+        <div class="gen-nm">marinalopes</div>
+        <div class="gen-url">linktr.ee/marinalopes</div>
+        <div class="gen-btn">Link 1</div>
+        <div class="gen-btn">Link 2</div>
+        <div class="gen-btn">WhatsApp</div>
+        <div class="gen-btn">Link 3</div>
+      </div>
+      <div class="side after" aria-hidden="true">
+        <span class="tag">LF</span>
+        <div class="lux-av">ML</div>
+        <div class="lux-nm">Dra. Marina Lopes</div>
+        <div class="lux-url">marinalopes.com.br</div>
+        <div class="lux-btn main">Agendar consulta no WhatsApp</div>
+        <div class="lux-btn">Instagram</div>
+        <div class="lux-map">Consultório · Seg a sex, 8h–18h</div>
+      </div>
+      <div class="knob" aria-hidden="true"><span><svg class="i" viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
+      <input class="range" id="cut" type="range" min="0" max="100" value="50" aria-label="Comparar link genérico com biolink LF">
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" aria-labelledby="port-t">
+    <p class="eyebrow">Portfólio</p>
+    <h2 id="port-t">9 biolinks no ar</h2>
+    <p class="lead">Toque para abrir o site real.</p>
+    <div class="feat">
+      <a class="card" href="https://draclaradantas.com.br" target="_blank" rel="noopener">
+        <div class="shot"><img src="assets/clara.png" alt="Biolink da Dra. Clara Dantas no celular" loading="lazy"></div>
+        <div class="meta"><b>Dra. Clara Dantas</b><span>Odontologia</span></div>
+      </a>
+      <a class="card" href="https://institutodanielleazevedo.com.br" target="_blank" rel="noopener">
+        <div class="shot"><img src="assets/danielle.png" alt="Biolink do Instituto Danielle Azevedo no celular" loading="lazy"></div>
+        <div class="meta"><b>Instituto Danielle Azevedo</b><span>Psicologia</span></div>
+      </a>
+    </div>
+    <div class="list" id="list"></div>
+  </section>
+
+  <!-- QUEM FAZ -->
+  <section id="quem" aria-labelledby="who-t">
+    <p class="eyebrow">Quem faz</p>
+    <h2 id="who-t">Feito por um dev, não por template</h2>
+    <p class="lead">Cada página é escrita do zero, com código leve e rápido no celular.</p>
+    <div class="who" data-tilt="3">
+      <div class="who-top">
+        <div class="who-av">LF</div>
+        <div><b>Leonardo Feitosa</b><span>Dev full stack · João Pessoa</span></div>
+      </div>
+      <p>Desenvolvedor full stack com sistemas em produção usados todo dia por equipes reais. React, Python, Node.js, SQL e automações com IA. Bacharel em Ciência de Dados pela UFPB.</p>
+      <div class="facts">
+        <div class="fact"><b data-count="3">3</b><small>sistemas internos em produção</small></div>
+        <div class="fact"><b data-count="9">9</b><small>biolinks no ar</small></div>
+        <div class="fact"><b data-count="50" data-suffix="+">50+</b><small>repositórios no GitHub</small></div>
+      </div>
+      <div class="tags"><span>React</span><span>Node.js</span><span>Python</span><span>SQL</span><span>n8n</span><span>IA</span><span>WhatsApp API</span><span>Docker</span></div>
+      <a class="btn primary" href="portfolio/">
+        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg></span>
+        <span class="lbl">Ver portfólio completo<small>Sistemas, IA, dados e projetos</small></span>
+        <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <div class="row2">
+        <a class="btn" href="https://github.com/leonardofeitos4?tab=repositories" target="_blank" rel="noopener">
+          <span class="lbl">GitHub</span>
+          <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/leonardofeitos4" target="_blank" rel="noopener">
+          <span class="lbl">LinkedIn</span>
+          <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INCLUDED -->
+  <section aria-labelledby="inc-t">
+    <p class="eyebrow">O que vem no seu</p>
+    <h2 id="inc-t">Tudo que o cliente procura, num toque</h2>
+    <p class="lead">Feito primeiro para o celular, que é de onde vem quem te acha no Instagram.</p>
+    <div class="grid2">
+      <div class="feat-i"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>Domínio com seu nome</div>
+      <div class="feat-i"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span>WhatsApp com mensagem pronta</div>
+      <div class="feat-i"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8.7 10.9 11.3 7.6M8.8 13.1l6.4 1.4"/></svg></span>Design com sua identidade</div>
+      <div class="feat-i"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Mapa e horários</div>
+      <div class="feat-i"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg></span>YouTube, podcast e redes</div>
+      <div class="feat-i"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></span>Google Analytics opcional</div>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section aria-labelledby="pr-t">
+    <p class="eyebrow">Investimento</p>
+    <h2 id="pr-t">Quanto custa</h2>
+    <p class="lead">Um valor para criar e uma mensalidade que cobre hospedagem e ajustes.</p>
+    <div class="price">
+      <div class="big">R$ 500</div>
+      <div class="sub">criação · + R$ 50/mês de hospedagem e ajustes</div>
+      <div class="calc">
+        <label for="valor">Quanto vale um cliente ou paciente pra você? <output id="valor-o">R$ 200</output></label>
+        <input class="slider" id="valor" type="range" min="50" max="1500" step="50" value="200">
+        <div class="payback" id="payback"></div>
+      </div>
+      <a class="btn primary js-wa" data-msg="Oi! Quero um biolink com domínio próprio. Pode me passar os detalhes?" href="#" style="background:var(--ink);color:var(--text);border-color:var(--ink)">
+        <span class="ico" style="background:rgba(255,255,255,.08)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
+        <span class="lbl">Pedir orçamento<small style="color:var(--muted)">Sem compromisso</small></span>
+        <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--lime)"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section aria-labelledby="st-t">
+    <p class="eyebrow">Como funciona</p>
+    <h2 id="st-t">Do WhatsApp ao site no ar</h2>
+    <p class="lead">Tudo online, sem reunião longa.</p>
+    <ol class="steps">
+      <li><div><b>Conversa no WhatsApp</b><span>Você conta o que faz e o que precisa na página.</span></div></li>
+      <li><div><b>Você manda logo, fotos e links</b><span>Se não tiver logo, uso suas cores e uma boa tipografia.</span></div></li>
+      <li><div><b>Eu crio e te mostro</b><span>Você ajusta o que quiser antes de publicar.</span></div></li>
+      <li><div><b>Site no ar com seu domínio</b><span>É só colocar o link na bio do Instagram.</span></div></li>
+    </ol>
+  </section>
+
+  <!-- FAQ -->
+  <section aria-labelledby="faq-t">
+    <p class="eyebrow">Dúvidas</p>
+    <h2 id="faq-t">Perguntas frequentes</h2>
+    <p class="lead">Não achou a sua? Me chama no WhatsApp.</p>
+    <details><summary>O que os R$ 50 por mês cobrem?<svg class="i pl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Hospedagem do site, renovação do domínio e ajustes quando você precisar mudar horário, link, foto ou texto.</p></details>
+    <details><summary>Já uso Linktree. Por que trocar?<svg class="i pl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Com domínio próprio, o cliente lembra do seu nome, a página tem a sua identidade e o link funciona em qualquer lugar: cartão, Google, assinatura de e-mail.</p></details>
+    <details><summary>Advogado pode ter biolink?<svg class="i pl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Pode. A página fica informativa e sóbria: áreas de atuação, contato e endereço, dentro do que a OAB permite.</p></details>
+    <details><summary>Atende fora de João Pessoa?<svg class="i pl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Sim. Todo o processo é online, para qualquer cidade do Brasil.</p></details>
+    <details><summary>Posso parcelar?<svg class="i pl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Me chama no WhatsApp e a gente combina a melhor forma de pagamento.</p></details>
+  </section>
+
+  <footer>
+    <div class="mini">LF<i aria-hidden="true"></i></div>
+    <div>LF Desenvolvimentos · João Pessoa, PB</div>
+    <div class="socials">
+      <a class="js-wa" data-msg="Oi! Vi seu biolink e quero um orçamento." href="#" aria-label="WhatsApp"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
+      <a href="https://www.instagram.com/lfdesenvolvimentos/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg></a>
+      <a href="https://github.com/leonardofeitos4?tab=repositories" target="_blank" rel="noopener" aria-label="GitHub"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+      <a href="https://www.linkedin.com/in/leonardofeitos4" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="mailto:leonardofeitos4@gmail.com" aria-label="E-mail"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+    </div>
+    <button class="share" id="share" type="button">Copiar link desta página</button>
+  </footer>
+</main>
+
+<div class="bar" id="bar">
+  <a class="btn primary js-wa" data-msg="Oi! Vi seu biolink e quero um orçamento." href="#">
+    <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
+    <span class="lbl">Pedir orçamento no WhatsApp</span>
+    <svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== Configuração: coloque aqui o WhatsApp com DDI + DDD, só números (ex.: 5583999999999) ===== */
+const WHATSAPP = "5583996666285";
+const INSTAGRAM = "lfdesenvolvimentos";
+
+function waLink(msg){
+  return WHATSAPP
+    ? "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg)
+    : "https://ig.me/m/" + INSTAGRAM;
+}
+document.querySelectorAll('.js-wa').forEach(a=>{
+  if(a.id==='quero') return;
+  a.href = waLink(a.dataset.msg || "Oi! Quero um orçamento.");
+  a.target = "_blank"; a.rel = "noopener";
+});
+
+/* spotlight */
+const spot = document.querySelector('.spot');
+window.addEventListener('pointermove', e=>{
+  spot.style.setProperty('--mx', e.clientX+'px');
+  spot.style.setProperty('--my', e.clientY+'px');
+}, {passive:true});
+
+/* logo */
+const mark = document.getElementById('mark');
+let pokes = 0;
+mark.addEventListener('click', ()=>{
+  mark.classList.remove('spin'); void mark.offsetWidth; mark.classList.add('spin');
+  setTimeout(()=>mark.classList.remove('spin'), 600);
+  const d = mark.querySelector('.dot'); d.classList.add('fx-blink'); setTimeout(()=>d.classList.remove('fx-blink'),140);
+  const r = d.getBoundingClientRect(), x = r.left + r.width/2, y = r.top + r.height/2;
+  pokes++;
+  if (window.LF) { LF.shock(x, y, 1.4); LF.buzz(15); }
+  const lines = ['Ei! 👀','Tô de olho em você','Para de cutucar 😅','Última chance…'];
+  if (pokes < 5) say(lines[pokes-1]);
+  else { pokes = 0; if (window.LF){ LF.confetti(x, y); LF.shock(x, y, 2.4); } say('🎉 Achou o easter egg! Agora me chama no WhatsApp'); }
+});
+
+/* toast */
+const toast = document.getElementById('toast');
+function say(t){ toast.textContent=t; toast.classList.add('show'); clearTimeout(say.t); say.t=setTimeout(()=>toast.classList.remove('show'),2200); }
+
+/* interações: tilt nos cartões, reveal nas seções */
+document.querySelectorAll('.btn,.card,.feat-i,.steps li,.price').forEach(el=>{ if(!el.closest('.bar') && !el.hasAttribute('data-tilt')) el.setAttribute('data-tilt', el.classList.contains('price') ? '3' : '6'); });
+document.querySelectorAll('main section').forEach(s=>s.setAttribute('data-reveal',''));
+
+/* contadores sobem quando aparecem */
+if('IntersectionObserver' in window){
+  const co = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return; co.unobserve(e.target);
+    const el=e.target, end=+el.dataset.count, suf=el.dataset.suffix||'', t0=performance.now();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent=end+suf; return; }
+    const run=t=>{ const k=Math.min(1,(t-t0)/1100), v=Math.round(end*(1-Math.pow(1-k,3))); el.textContent=v+(k===1?suf:''); if(k<1) requestAnimationFrame(run); };
+    requestAnimationFrame(run);
+  }),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+}
+
+/* ===== simulador ===== */
+const PROFS = [
+  {k:'Psicóloga', cta:'Agendar sessão'},
+  {k:'Dentista', cta:'Agendar avaliação'},
+  {k:'Advogado', cta:'Falar com o escritório'},
+  {k:'Nutricionista', cta:'Agendar consulta'},
+  {k:'Clínica', cta:'Marcar horário'},
+  {k:'Tatuador', cta:'Pedir orçamento'}
+];
+const CORES = [
+  {n:'Terracota', c:'#C98B7A', bg:'#F7F2EE', ink:'#2A1F1A'},
+  {n:'Sálvia', c:'#5F8B6E', bg:'#F1F5F1', ink:'#1C2A20'},
+  {n:'Marinho', c:'#2F4A7A', bg:'#EEF2F8', ink:'#151E2E'},
+  {n:'Dourado', c:'#A8833A', bg:'#FAF6EC', ink:'#2B2312'},
+  {n:'Grafite', c:'#E8E6E1', bg:'#1A1C21', ink:'#F4F4F2'}
+];
+let prof = PROFS[0], cor = CORES[0];
+const $ = id => document.getElementById(id);
+const profs = $('profs'), cores = $('cores');
+PROFS.forEach((p,i)=>{
+  const b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=p.k;
+  b.setAttribute('aria-pressed', i===0); b.onclick=()=>{ prof=p; profs.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed', x===b)); render(true); };
+  profs.appendChild(b);
+});
+CORES.forEach((c,i)=>{
+  const b=document.createElement('button'); b.type='button'; b.className='sw'; b.style.setProperty('--c', c.c);
+  b.setAttribute('aria-label', 'Cor '+c.n); b.setAttribute('aria-pressed', i===0);
+  b.onclick=()=>{ cor=c; cores.querySelectorAll('.sw').forEach(x=>x.setAttribute('aria-pressed', x===b)); render(true); };
+  cores.appendChild(b);
+});
+function slugify(s){
+  return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()
+    .replace(/\b(dra?|dr)\.?\s+/g,'').replace(/[^a-z0-9]+/g,'').slice(0,28);
+}
+function initials(s){
+  const w = s.replace(/\b(Dra?|Dr)\.?\s+/gi,'').trim().split(/\s+/).filter(Boolean);
+  return ((w[0]||'S')[0] + (w.length>1 ? w[w.length-1][0] : '')).toUpperCase();
+}
+const nome=$('nome'), screen=$('screen'), av=$('av');
+function render(bump){
+  const n = nome.value.trim() || 'Seu Nome';
+  const slug = slugify(nome.value) || 'seunome';
+  $('slug').textContent = slug;
+  $('quero-s').textContent = slug + '.com.br';
+  $('pnm').textContent = n;
+  $('ppf').textContent = prof.k;
+  $('pcta').textContent = prof.cta;
+  av.textContent = initials(n);
+  screen.style.setProperty('--pbg', cor.bg);
+  screen.style.setProperty('--pink', cor.ink);
+  screen.style.setProperty('--pc', cor.c);
+  av.style.color = cor.n==='Grafite' ? '#1A1C21' : '#fff';
+  screen.querySelector('.pbtn.main').style.color = cor.n==='Grafite' ? '#1A1C21' : '#fff';
+  screen.querySelectorAll('.pbtn:not(.main)').forEach(b=>b.style.background = cor.n==='Grafite' ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.06)');
+  if(bump){ av.classList.remove('pop'); void av.offsetWidth; av.classList.add('pop'); }
+  $('quero').href = waLink('Oi! Quero um biolink assim: ' + n + ' (' + prof.k + '), cor ' + cor.n.toLowerCase() + ', domínio ' + slug + '.com.br. Pode me passar os detalhes?');
+  $('quero').target='_blank'; $('quero').rel='noopener';
+}
+nome.addEventListener('input', ()=>render(false));
+render(false);
+
+/* ===== comparador ===== */
+const cmp=$('compare'), cut=$('cut');
+function setCut(v){ cmp.style.setProperty('--cut', v+'%'); cut.value=v; }
+cut.addEventListener('input', ()=>setCut(cut.value));
+setCut(50);
+/* convite: varre uma vez quando aparece */
+let swept=false;
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
+  new IntersectionObserver((es,o)=>{ es.forEach(e=>{ if(e.isIntersecting && !swept){ swept=true; o.disconnect();
+    const seq=[50,22,78,50]; let i=0; const step=()=>{ if(i>=seq.length) return; const from=+cut.value, to=seq[i++], t0=performance.now();
+      const run=t=>{ const k=Math.min(1,(t-t0)/450), ease=1-Math.pow(1-k,3); setCut(from+(to-from)*ease); k<1?requestAnimationFrame(run):setTimeout(step,80); }; requestAnimationFrame(run); }; step(); } }); },{threshold:.6}).observe(cmp);
+}
+
+/* ===== portfólio ===== */
+const SITES = [
+  {u:'brunofreitasnutri.com.br', n:'Bruno Freitas', t:'Nutrição', c:'#7BC86C'},
+  {u:'lalobaink.com.br', n:'Laloba Ink', t:'Tatuagem', c:'#E8E6E1'},
+  {u:'urbanascomunicacao.com.br', n:'Urbanas Comunicação', t:'Agência', c:'#F2A65A'},
+  {u:'institutofilhasdesantaclara.com', n:'Instituto Filhas de Santa Clara', t:'Instituto', c:'#D9C7A0'},
+  {u:'fernandalilioso.com.br', n:'Fernanda Lilioso', t:'Biolink', c:'#E7B7B0'},
+  {u:'caiolivio.evolvify.cloud', n:'Caio Lívio', t:'Biolink', c:'#9CC3E6'},
+  {u:'lumen.evolvify.cloud', n:'Lumen', t:'Biolink', c:'#F4E39A'}
+];
+const list=$('list');
+SITES.forEach(s=>{
+  const a=document.createElement('a'); a.className='row'; a.href='https://'+s.u; a.target='_blank'; a.rel='noopener';
+  a.innerHTML='<span class="fav" style="background:'+s.c+'">'+s.n[0]+'</span><span class="d"><b>'+s.u+'</b><span>'+s.n+' · '+s.t+'</span></span><svg class="i arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+  list.appendChild(a);
+});
+
+/* ===== calculadora ===== */
+const valor=$('valor');
+function calc(){
+  const v=+valor.value; $('valor-o').textContent='R$ '+v.toLocaleString('pt-BR');
+  const n=Math.ceil(500/v), m=Math.max(1,Math.ceil(50/v));
+  $('payback').innerHTML='A criação se paga com <b>'+n+' '+(n>1?'clientes':'cliente')+'</b>. A mensalidade, com '+(m>1?m+' clientes':'1 cliente')+' por mês.';
+}
+valor.addEventListener('input', calc); calc();
+
+/* ===== barra fixa ===== */
+const bar=$('bar');
+if('IntersectionObserver' in window){
+  new IntersectionObserver(es=>es.forEach(e=>bar.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top<0)),{threshold:0}).observe($('heroActions'));
+}
+
+/* ===== copiar link ===== */
+$('share').addEventListener('click', async ()=>{
+  try{ await navigator.clipboard.writeText(location.href.split('#')[0]); say('Link copiado'); }
+  catch(e){ say('Não deu para copiar aqui'); }
+});
+</script>
+<script src="assets/fx.js" defer></script>
+</body>
+</html>
